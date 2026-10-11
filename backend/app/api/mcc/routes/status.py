@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import UTC, datetime
 from typing import Annotated
 
 from fastapi import APIRouter, Depends
@@ -60,7 +60,7 @@ async def get_satellite_status(
 
     frontend_status = STATUS_MAP.get(session.status, "error")
 
-    now = datetime.now()
+    now = datetime.now(UTC)
     contact_time = session.end_time if session.end_time is not None else session.start_time
     diff = now - contact_time
     minutes = int(diff.total_seconds() / 60)
